@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './app';
+import AuthProvider from './providers/AuthProvider';
 
 const rootElement = document.querySelector('#root') as HTMLElement;
 const root = ReactDOM.createRoot(rootElement);
@@ -14,11 +15,13 @@ const queryClient = new QueryClient();
 
 root.render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <App />
-        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
-      </BrowserRouter>
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App />
+          {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+        </BrowserRouter>
+      </QueryClientProvider>
+    </AuthProvider>
   </StrictMode>,
 );

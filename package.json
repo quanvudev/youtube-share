@@ -1,40 +1,18 @@
 {
-  "name": "template-vite-react-ts-tailwind",
   "private": true,
-  "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-query": "3.39.3",
-    "react-router-dom": "6.11.2"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@nabla/vite-plugin-eslint": "1.5.0",
-    "@types/node": "18.16.1",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.1",
-    "@typescript-eslint/eslint-plugin": "5.59.1",
-    "@typescript-eslint/parser": "5.59.1",
-    "@vitejs/plugin-react-swc": "3.3.0",
-    "autoprefixer": "10.4.14",
-    "eslint": "8.39.0",
-    "eslint-config-prettier": "8.8.0",
-    "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-react": "7.32.2",
-    "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-simple-import-sort": "10.0.0",
-    "eslint-plugin-unicorn": "47.0.0",
-    "postcss": "8.4.23",
-    "prettier": "2.8.8",
-    "prettier-plugin-tailwindcss": "0.2.7",
-    "tailwindcss": "3.3.2",
-    "typescript": "5.0.4",
-    "vite": "4.3.5"
-  }
+    "@turbo/gen": "^1.9.7",
+    "eslint": "^7.32.0",
+    "prettier": "^2.5.1",
+    "turbo": "^1.10.1"
+  },
+  "packageManager": "pnpm@7.15.0",
+  "name": "remi"
 }
