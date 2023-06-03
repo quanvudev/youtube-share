@@ -1,10 +1,12 @@
 import './index.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import App from './app';
 import AuthProvider from './providers/AuthProvider';
@@ -23,5 +25,6 @@ root.render(
         </BrowserRouter>
       </QueryClientProvider>
     </AuthProvider>
+    <ToastContainer />
   </StrictMode>,
 );

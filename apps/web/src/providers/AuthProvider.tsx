@@ -1,8 +1,9 @@
 import { useMemo, useReducer } from 'react';
 
-import authContext, { AuthState } from '@/context/AuthContext';
+import authContext, { AuthState, AuthUser } from '@/context/AuthContext';
+import axios from '@/plugins/axios';
 
-enum AuthAction {
+export enum AuthAction {
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
 }
@@ -11,10 +12,7 @@ type LOGIN = {
   type: AuthAction.LOGIN;
   payload: {
     token: string;
-    user: {
-      name: string;
-      id: string;
-    };
+    user: AuthUser;
   };
 };
 type LOGOUT = {
@@ -36,6 +34,7 @@ const authReducer = (state: AuthState, action: AuthActionType) => {
       return {
         ...state,
         token: undefined,
+        user: undefined,
       };
     }
     default: {
@@ -56,7 +55,7 @@ export default function AuthProvider({
     user: undefined,
   });
 
-  function login(token: string, user: { name: string; id: string }) {
+  function login(token: string, user: AuthUser) {
     dispatch({
       type: AuthAction.LOGIN,
       payload: {
@@ -64,12 +63,16 @@ export default function AuthProvider({
         user,
       },
     });
+
+    axios.defaults.headers['Authorization'] = `Bearer ${token}`;
   }
 
   function logout() {
     dispatch({
       type: AuthAction.LOGOUT,
     });
+    // eslint-disable-next-line unicorn/no-null
+    axios.defaults.headers['Authorization'] = null;
   }
 
   const value = useMemo(() => ({ state, dispatch, login, logout }), [state]);
