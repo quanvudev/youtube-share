@@ -6,7 +6,7 @@ const DefaultLayout: FC<{
   children?: ReactNode;
 }> = ({ children }) => {
   return (
-    <div className="min-h-screen w-screen">
+    <div className="min-h-screen">
       <LayoutHeader />
       {children}
     </div>

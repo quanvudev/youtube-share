@@ -66,9 +66,9 @@ export function VideoItem({
       <div className="flex flex-1 overflow-hidden rounded">
         <iframe src={video} />
       </div>
-      <div className="flex flex-1">
-        <article className="flex flex-col gap-y-2">
-          <h2 className="text-lg font-bold">{data.title}</h2>
+      <div className="flex flex-1 overflow-hidden">
+        <article className="flex flex-col gap-y-2 overflow-hidden">
+          <p className="truncate font-bold">{data.title}</p>
           <h2 className="font-semibold">Shared by: {data.author.email}</h2>
           <div className="flex w-full items-center gap-x-4">
             <button

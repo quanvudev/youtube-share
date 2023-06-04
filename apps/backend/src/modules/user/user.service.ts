@@ -17,4 +17,18 @@ export class UserService {
   findByEmail(email: string) {
     return this.dbService.user.findUnique({ where: { email } });
   }
+
+  addSocketId(id: number, socketId: string) {
+    return this.dbService.user.update({
+      where: { id },
+      data: { socketId },
+    });
+  }
+
+  removeSocketId(socketId: string) {
+    return this.dbService.user.updateMany({
+      where: { socketId },
+      data: { socketId: null },
+    });
+  }
 }

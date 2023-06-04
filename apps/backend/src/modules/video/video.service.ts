@@ -2,18 +2,27 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { DbService } from '../../core/db/db.service';
 import { CreateVideoDto } from './create-video.dto';
 import { ThumbType } from '@prisma/client';
+import { SocketGateway } from '../../core/socket/socket.gateway';
 
 @Injectable()
 export class VideoService {
-  constructor(private readonly dbService: DbService) {
+  constructor(
+    private readonly dbService: DbService,
+    private readonly socketGateway: SocketGateway,
+  ) {
     //
   }
 
   async find(page = 0, pageSize = 10) {
     const totalVideos = await this.dbService.video.count();
     const totalPages = Math.ceil(totalVideos / pageSize);
+
     const previousPage = page > 0 ? page - 1 : null;
-    const nextPage = page < totalPages - 1 ? page + 1 : null;
+    const nextPage =
+      page < totalPages ? (page < totalPages - 1 ? page + 1 : null) : null;
+
+    console.log(totalVideos, page, totalPages, previousPage, nextPage);
+
     const data = await this.dbService.video.findMany({
       skip: page * pageSize,
       take: pageSize,
@@ -45,13 +54,24 @@ export class VideoService {
     };
   }
 
-  create(userId: number, payload: CreateVideoDto) {
-    return this.dbService.video.create({
+  async create(userId: number, payload: CreateVideoDto) {
+    const video = await this.dbService.video.create({
       data: {
         ...payload,
         authorId: userId,
       },
+      include: {
+        author: {
+          select: {
+            id: true,
+            email: true,
+          },
+        },
+      },
     });
+
+    this.socketGateway.shareVideo(video);
+    return video;
   }
 
   async thumb(userId: number, id: number, type: ThumbType) {

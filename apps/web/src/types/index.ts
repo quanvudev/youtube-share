@@ -33,3 +33,7 @@ export type Video = {
 };
 
 export type VideoDTO = Pick<Video, 'title' | 'description' | 'url'>;
+
+export interface DefaultEventsMap {
+  [event: string]: (...arguments_: any[]) => void;
+}

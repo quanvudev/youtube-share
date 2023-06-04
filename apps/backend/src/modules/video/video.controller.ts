@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CurrentUser, Public } from '../../commons/guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { VideoService } from './video.service';
@@ -13,8 +21,8 @@ export class VideoController {
   }
   @Get()
   @Public()
-  find(@Param('cursor') cursor = 0, @Param('pageSize') pageSize = 10) {
-    return this.videoService.find(cursor, pageSize);
+  find(@Query('cursor') cursor = 0, @Query('pageSize') pageSize = 10) {
+    return this.videoService.find(+cursor, +pageSize);
   }
 
   @Post()

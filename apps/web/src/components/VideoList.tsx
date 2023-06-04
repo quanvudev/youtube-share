@@ -10,27 +10,31 @@ import VideoPage from './VideoPage';
 export default function VideoList() {
   const { ref, inView } = useInView();
 
-  const { data, fetchNextPage, hasNextPage, isLoading, refetch } =
-    useInfiniteQuery(
-      'videos',
-      async ({ pageParam: cursor = 0 }) => {
-        return getVideos(cursor);
-      },
-      {
-        getPreviousPageParam: (firstPage) =>
-          firstPage.previousPage ?? undefined,
-        getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
-        enabled: inView,
-      },
-    );
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteQuery(
+    'videos',
+    async ({ pageParam: cursor = 0 }) => {
+      return getVideos(cursor);
+    },
+    {
+      getPreviousPageParam: (firstPage) => firstPage.previousPage ?? undefined,
+      getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
+    },
+  );
 
   const handleRefetchPage = (pageIndex: number) => () => {
     refetch({ refetchPage: (_, index) => index === pageIndex });
   };
 
   useEffect(() => {
-    if (inView && hasNextPage) fetchNextPage();
-  }, [fetchNextPage, hasNextPage, inView]);
+    if (inView) fetchNextPage();
+  }, [fetchNextPage, inView]);
 
   return (
     <div className="flex w-full max-w-screen-sm flex-col gap-y-4">
@@ -41,9 +45,16 @@ export default function VideoList() {
           key={index}
         />
       ))}
-      <div className="w-full" ref={ref}>
-        {isLoading && <AiOutlineLoading className="mx-auto animate-spin" />}
-      </div>
+      {hasNextPage && (
+        <button
+          className="w-full"
+          ref={ref}
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isLoading && <AiOutlineLoading className="mx-auto animate-spin" />}
+        </button>
+      )}
     </div>
   );
 }
