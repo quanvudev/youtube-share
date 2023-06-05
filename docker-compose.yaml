@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
-    restart: always
+    restart: unless-stopped
     ports:
       - 80:80
     networks:
@@ -17,7 +17,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/backend/Dockerfile
-    restart: always
+    restart: unless-stopped
     ports:
       - 3001:3001
     depends_on:
@@ -28,6 +28,7 @@ services:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
 
   postgres:
+    container_name: postgres
     image: postgres:latest
     environment:
       POSTGRES_USER: postgres
@@ -38,6 +39,33 @@ services:
     restart: unless-stopped
     networks:
       - internal_network
+    ports:
+      - 5432:5432
+
+  migration:
+    container_name: migration
+    build:
+      context: .
+      dockerfile: ./migration/Dockerfile
+    depends_on:
+      - postgres
+    networks:
+      - internal_network
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
+
+  seed:
+    container_name: seed
+    build:
+      context: .
+      dockerfile: ./seed/Dockerfile
+    depends_on:
+      - postgres
+      - migration
+    networks:
+      - internal_network
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
 
 networks:
   internal_network:
