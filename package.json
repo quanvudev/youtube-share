@@ -5,6 +5,10 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
+    "prisma:seed": "turbo run prisma:seed",
+    "prisma:reset": "turbo run prisma:reset",
+    "prisma:generate": "turbo run prisma:generate",
+    "migrate:dev": "turbo run migrate:dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

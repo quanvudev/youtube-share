@@ -11,6 +11,22 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "migrate:dev": {
+      "dependsOn": ["^migrate:dev"],
+      "cache": false
+    },
+    "prisma:seed": {
+      "dependsOn": ["^prisma:seed"],
+      "cache": false
+    },
+    "prisma:reset": {
+      "dependsOn": ["^prisma:reset"],
+      "cache": false
+    },
+    "prisma:generate": {
+      "dependsOn": ["^prisma:generate"],
+      "cache": false
     }
   }
 }

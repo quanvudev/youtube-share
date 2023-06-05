@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 
 export const seed = async () => {
   const pwdHash = await argon2.hash('123456');
-
   await prisma.user.createMany({
     data: Array(10)
       .fill('')
