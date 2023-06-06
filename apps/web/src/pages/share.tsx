@@ -74,6 +74,7 @@ export default function SharePage() {
                   onChange={handleChange}
                   value={state.title}
                   name="title"
+                  placeholder="Video Title"
                   className="flex flex-1 rounded border px-4 py-2 outline-none transition-all focus:ring"
                 />
               </div>
@@ -93,6 +94,7 @@ export default function SharePage() {
                     handleChange(event_);
                     firstChanged.current = true;
                   }}
+                  placeholder="Video Url"
                   value={state.url}
                   className="flex flex-1 rounded border px-4 py-2 outline-none transition-all focus:ring"
                 />
@@ -110,6 +112,7 @@ export default function SharePage() {
                   onChange={handleChange}
                   value={state.description}
                   name="description"
+                  placeholder="Video Description"
                   className="flex flex-1 rounded border px-4 py-2 outline-none transition-all focus:ring"
                 />
               </div>

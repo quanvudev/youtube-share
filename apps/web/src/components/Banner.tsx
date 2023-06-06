@@ -53,7 +53,7 @@ export default function Banner() {
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="flex w-full gap-x-4">
+      <div className="flex w-full gap-x-4" data-testid="banner">
         <div className="flex flex-1 overflow-hidden rounded">
           <iframe
             src={`https://www.youtube.com/embed/${getVideoId(

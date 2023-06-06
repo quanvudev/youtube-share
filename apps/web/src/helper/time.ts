@@ -15,7 +15,7 @@ export default class Timer {
 
   pause = () => {
     if (!this.timerId) return;
-    window.clearTimeout(this.timerId);
+    clearTimeout(this.timerId); // Use clearTimeout to clear the timer
     this.timerId = undefined;
     this.remaining -= Date.now() - this.start;
   };

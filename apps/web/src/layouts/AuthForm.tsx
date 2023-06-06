@@ -32,7 +32,7 @@ function AuthForm() {
 
   if (context.isAuth && user)
     return (
-      <div className="flex items-center gap-x-2">
+      <div className="flex items-center gap-x-2" data-testid="auth-form">
         <h2 className="flex">
           <span>Welcome:</span>
           <div className="ml-1 font-bold">{user.email}</div>
@@ -49,7 +49,11 @@ function AuthForm() {
     );
 
   return (
-    <form className="flex gap-x-2" onSubmit={handleSubmit}>
+    <form
+      className="flex gap-x-2"
+      onSubmit={handleSubmit}
+      data-testid="auth-form"
+    >
       <input
         type="text"
         placeholder="Email"

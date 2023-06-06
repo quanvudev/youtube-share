@@ -64,7 +64,7 @@ export function VideoItem({
   return (
     <div className="flex w-full gap-x-4 rounded border bg-white p-4 shadow-lg">
       <div className="flex flex-1 overflow-hidden rounded">
-        <iframe src={video} />
+        <iframe src={video} data-testid="video" />
       </div>
       <div className="flex flex-1 overflow-hidden">
         <article className="flex flex-col gap-y-2 overflow-hidden">
@@ -75,6 +75,7 @@ export function VideoItem({
               className="flex items-center gap-x-2"
               onClick={handleThumbUp}
               disabled={isLoading}
+              data-testid="thumb-up-button"
             >
               {thumbsUp} {isVoted ? <FaThumbsUp /> : <FiThumbsUp />}
             </button>
@@ -82,6 +83,7 @@ export function VideoItem({
               className="flex items-center gap-x-2"
               onClick={handleThumbDown}
               disabled={isLoading}
+              data-testid="thumb-down-button"
             >
               {thumbsDown} {isVoted ? <FaThumbsDown /> : <FiThumbsDown />}
             </button>

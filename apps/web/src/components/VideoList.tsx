@@ -51,6 +51,7 @@ export default function VideoList() {
           ref={ref}
           onClick={() => fetchNextPage()}
           disabled={!hasNextPage || isFetchingNextPage}
+          data-testid="load-more-button"
         >
           {isLoading && <AiOutlineLoading className="mx-auto animate-spin" />}
         </button>
