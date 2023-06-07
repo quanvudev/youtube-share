@@ -120,7 +120,7 @@ export default function AuthProvider({
   }, []);
 
   useEffect(() => {
-    socket.current = io('http://localhost:3001', { autoConnect: true });
+    socket.current = io(import.meta.env.PROD ? 'https://api.remi.quanvu.dev' : 'http://localhost:3001', { autoConnect: true });
     bootstrap();
   }, [bootstrap]);
 

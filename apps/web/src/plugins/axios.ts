@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const axios = Axios.create({
-  baseURL: 'http://localhost:3001/v1/api',
+  baseURL: `${import.meta.env.PROD ? 'https://api.remi.quanvu.dev' : 'http://localhost:3001'}/v1/api`,
 });
 
 axios.interceptors.request.use(
