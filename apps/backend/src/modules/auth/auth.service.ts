@@ -20,21 +20,24 @@ export class AuthService {
   async create(createAuthDto: CreateAuthDto) {
     const user = await this.userService.findByEmail(createAuthDto.email);
 
-    if (!user) return new HttpException("User doesn't exist", 404);
-    const isValid = await argon2.verify(user.password, createAuthDto.password);
+    if (!user) throw new HttpException("User doesn't exist", 404);
+    const isValid = await argon2
+      .verify(user.password, createAuthDto.password)
+      .catch(() => false);
 
     if (!isValid)
-      return new UnauthorizedException({ message: 'Invalid password' });
+      throw new UnauthorizedException({ message: 'Invalid password' });
 
-    delete user.password;
+    const userWithDeletedPassword = { ...user };
+    delete userWithDeletedPassword.password;
     const accessToken = this.jwtService.sign({ id: user.id });
-    return new HttpException({ accessToken, user }, HttpStatus.OK);
+    return { accessToken, user: userWithDeletedPassword };
   }
 
   async findOne(id: number) {
     const user = await this.userService.findOne(id);
     if (!user)
-      return new UnauthorizedException({ message: 'Token is not valid' });
+      throw new UnauthorizedException({ message: 'Token is not valid' });
     return user;
   }
 }

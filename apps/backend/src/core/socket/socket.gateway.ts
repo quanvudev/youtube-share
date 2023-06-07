@@ -21,7 +21,7 @@ export class SocketGateway {
 
   @SubscribeMessage('connected')
   handleConnection(client: Socket) {
-    client.join(['PUBLIC']);
+    client.join('PUBLIC');
   }
 
   @SubscribeMessage('disconnect')

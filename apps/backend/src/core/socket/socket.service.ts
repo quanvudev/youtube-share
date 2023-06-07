@@ -30,7 +30,6 @@ export class SocketService {
     server?: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>,
   ) {
     if (!server) server = this.server;
-    const result = server.to(['PUBLIC']).emit('new_video', video);
-    console.log(result);
+    server.to(['PUBLIC']).emit('new_video', video);
   }
 }

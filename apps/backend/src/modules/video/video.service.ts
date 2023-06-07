@@ -21,8 +21,6 @@ export class VideoService {
     const nextPage =
       page < totalPages ? (page < totalPages - 1 ? page + 1 : null) : null;
 
-    console.log(totalVideos, page, totalPages, previousPage, nextPage);
-
     const data = await this.dbService.video.findMany({
       skip: page * pageSize,
       take: pageSize,
@@ -103,7 +101,7 @@ export class VideoService {
     });
     if (!video)
       return new HttpException('Video not found', HttpStatus.NOT_FOUND);
-    const thumb = video.thumbs.find((thumb) => thumb.authorId === userId);
+    const thumb = video.thumbs?.find((thumb) => thumb.authorId === userId);
     if (!thumb) {
       return this.dbService.thumb.create({
         data: {
