@@ -4,6 +4,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "test": "turbo run test",
     "lint:fix": "turbo run lint:fix",
     "prisma:seed": "turbo run prisma:seed",
     "prisma:reset": "turbo run prisma:reset",

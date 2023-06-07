@@ -39,8 +39,6 @@ services:
     restart: unless-stopped
     networks:
       - internal_network
-    ports:
-      - 5432:5432
 
   migration:
     container_name: migration
