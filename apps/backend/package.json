@@ -25,7 +25,7 @@
     "prisma:generate": "prisma generate",
     "prisma:generate:watch": "prisma generate --watch",
     "prisma:studio": "prisma studio",
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts",
+    "prisma:seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts",
     "prisma:reset": "prisma migrate reset",
     "predev": "rimraf dist"
   },
